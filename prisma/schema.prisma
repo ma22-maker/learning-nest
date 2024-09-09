@@ -12,6 +12,13 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+
+enum Role {
+  ADMIN
+  COMMON
+}
+
 model Book {
   id            Int      @id @default(autoincrement())
   title         String
@@ -22,3 +29,10 @@ model Book {
   createdAt     DateTime @default(now()) 
   updatedAt     DateTime @updatedAt       
 }
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+  role     Role   @default(COMMON)
+}
+
